@@ -1,4 +1,4 @@
-module TopModule(
+module TopModule( //Connects everything together
     input reset, clk, rx_in,
     output wire tx
 );
