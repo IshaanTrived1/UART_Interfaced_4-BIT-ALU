@@ -18,6 +18,12 @@ module ALU_tb_sv;
         
       endcase
     end
+
+  class alu_transaction;
+    rand bit [3:0] A,
+    rand bit [3:0] B, 
+    rand bit [2:0] Operation;
+    
   endfunction
 
 endmodule
