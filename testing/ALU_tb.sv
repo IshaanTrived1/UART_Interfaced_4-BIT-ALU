@@ -1,31 +1,29 @@
-//ALU testbench rewrite in SystemVerilog
-module ALU_tb_sv;
-  function automatic reg[7:0] ALUTest (reg[3:0]A, reg[3:0]B, reg[2:0]Operation) 
-    begin
-      case(Operation)
-      3'b001: 
-            return A + B;
-        3'b010:
-            return A - B;
-        3'b011: 
-            return A * B;
-        3'b100:
-            return A << B;
-        3'b101:
-            return A >> B;
-        default: 
-            return 0;
-        
-      endcase
-    end
+module alu_tb;
+  reg [3:0] A, B;
+  reg[2:0] Operation;
+  wire [7:0] result;
 
-  class alu_transaction;
-    rand bit [3:0] A,
-    rand bit [3:0] B, 
-    rand bit [2:0] Operation;
-    
-  endfunction
 
+  ALU dut (
+    .A(A),
+    .B(B),
+    .Operation(Operation),
+    .result(result)
+  );
+
+  initial begin (
+    #10;
+
+    A = 1; B = 1; Operation = 1;
+
+    #10;
+
+    if (result != 2)
+      $display("Test failed, expected 2 and recieved %d", result);
+    else
+      $display("Test passed!");
+
+  
+  
 endmodule
-
   
