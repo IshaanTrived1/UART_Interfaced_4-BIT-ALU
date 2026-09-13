@@ -6,18 +6,25 @@ module ALU(
     output reg [7:0] result
 );
 //Change to localparam Add = 3'b001 etc
+
+localparam ADD = 3'b001;
+localparam SUB = 3'b010;
+localparam MULT = 3'b011;
+localparam SHIFT_LEFT = 3'b100;
+localparam SHIFT_RIGHT = 3'b101;
+    
 always @(*) begin
     //based on the opcode, tells the ALU to add, subtract, multiply, shift right/left
     case(Operation)
-        3'b001: 
+        ADD: 
             result = A + B;
-        3'b010:
+        SUB:
             result = A - B;
-        3'b011: 
+        MULT: 
             result = A * B;
-        3'b100:
+        SHIFT_LEFT:
             result = A << B;
-        3'b101:
+        SHIFT_RIGHT:
             result = A >> B;
 
         default: 
