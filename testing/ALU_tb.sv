@@ -22,6 +22,7 @@ module alu_tb;
       $display("Test failed, expected 2 and recieved %d", result);
     else
       $display("Test passed!");
+  )
 
   
   
