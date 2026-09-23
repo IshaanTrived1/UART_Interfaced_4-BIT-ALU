@@ -1,7 +1,7 @@
 module alu_tb;//module declaration
-  reg [3:0] A, B;
-  reg[2:0] Operation;
-  wire [7:0] result;
+  logic [3:0] A, B;
+  logic [2:0] Operation;
+  logic [7:0] result;
 
 
   ALU dut ( //initializing the dut
@@ -11,9 +11,8 @@ module alu_tb;//module declaration
     .result(result)
   );
 
-
-  task automatic check_alu(input reg[2:0]op, input reg[3:0]a, input reg[3:0]b, input reg[7:0] expected); //our test function
-    A = a;
+  //our test function
+  task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    A = a;
     B = b;
     Operation = op;
     #10;
@@ -21,7 +20,7 @@ module alu_tb;//module declaration
     if(result == expected)
       $display("Test passed");
     else 
-      $display("Test failed. Expected %d, got %d for operation: %d", expected, result, Operation);
+      $display("Test failed. Expected %d, got %d for operation: %d", expected, result, op);
   endtask
 
 
