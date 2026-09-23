@@ -27,9 +27,12 @@ module alu_tb;//module declaration
 
   initial begin 
     check_alu(dut.ADD, 4, 3, 7);
-
     check_alu(dut.SUB, 9, 4, 5);
     check_alu(dut.MULT, 3, 3, 9);
+    check_alu(dut.SHIFT_LEFT, 1, 2, 4);
+    check_alu(dut.ADD, 10, 10, 20);
+    check_alu(dut.SUB, 9, 0, 9);
+    check_alu(dut.MULT, 1, 3, 3);
     check_alu(dut.SHIFT_LEFT, 1, 2, 4);
   end
       
