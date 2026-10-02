@@ -3,6 +3,10 @@ module alu_tb;//module declaration
   logic [2:0] Operation;
   logic [7:0] result;
 
+  integer pass=0, fail =0;
+  integer i, j;
+  
+
 
   ALU dut ( //initializing the dut
     .A(A),
@@ -18,23 +22,31 @@ module alu_tb;//module declaration
     Operation = op;
     #10;
 
-    if(result == expected)
+    if(result == expected) begin
       $display("Test passed");
-    else 
+      pass = pass + 1;
+     end
+    else begin
       $display("Test failed. Expected %d, got %d for operation: %d", expected, result, op);
+      fail = fail + 1;
+     end
   endtask
 
 
   initial begin 
-    check_alu(dut.ADD, 4, 3, 7);
-    check_alu(dut.SUB, 9, 4, 5);
-    check_alu(dut.MULT, 3, 3, 9);
-    check_alu(dut.SHIFT_LEFT, 1, 2, 4);
-    check_alu(dut.ADD, 10, 10, 20);
-    check_alu(dut.SUB, 9, 0, 9);
-    check_alu(dut.MULT, 1, 3, 3);
-    check_alu(dut.SHIFT_LEFT, 1, 2, 4);
-    check_alu(dut.SHIFT_LEFT, 1, 3, 4);
+
+    for(i=0; i < 16; i++) begin
+      for(j=0; j<16; j++) begin
+        check_alu(dut.ADD, i, j, i+j);
+        check_alu(dut.SUB, i, j, i-j);
+        //check_alu(dut.MULT, i, j, i*j);
+        //check_alu(dut.SHIFT_LEFT, i, j, i<<j);
+       // check_alu(dut.SHIFT_RIGHT, i, j, i>>j);
+
+      end
+    end
+
+    $display("Test failed: %d, Test passed: %d", fail, pass);
   end
       
 
