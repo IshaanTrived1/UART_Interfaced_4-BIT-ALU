@@ -12,7 +12,8 @@ module alu_tb;//module declaration
   );
 
   //our test function
-  task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    A = a;
+  task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
+    A = a;
     B = b;
     Operation = op;
     #10;
@@ -33,10 +34,10 @@ module alu_tb;//module declaration
     check_alu(dut.SUB, 9, 0, 9);
     check_alu(dut.MULT, 1, 3, 3);
     check_alu(dut.SHIFT_LEFT, 1, 2, 4);
+    check_alu(dut.SHIFT_LEFT, 1, 3, 4);
   end
       
 
   
   
 endmodule
-  
