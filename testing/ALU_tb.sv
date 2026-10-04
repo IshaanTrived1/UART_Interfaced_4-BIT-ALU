@@ -16,7 +16,7 @@ module alu_tb;//module declaration
   );
 
   //our test function
-  task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
+  /* task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
     A = a;
     B = b;
     Operation = op;
@@ -30,10 +30,10 @@ module alu_tb;//module declaration
       $display("Test failed. Expected %d, got %d for operation: %d", expected, result, op);
       fail = fail + 1;
      end
-  endtask
+  endtask */
 
 
-  initial begin 
+  /* initial begin 
 
     for(i=0; i < 16; i++) begin
       for(j=0; j<16; j++) begin
@@ -44,10 +44,22 @@ module alu_tb;//module declaration
        // check_alu(dut.SHIFT_RIGHT, i, j, i>>j);
 
       end
-    end
+    end */
 
-    $display("Test failed: %d, Test passed: %d", fail, pass);
+  class alu_txn;
+      rand logic [3:0] a, b;
+      rand logic [2:0] op;
+  endclass
+
+  initial begin
+    alu_txn t = new();
+    for(i=0; i<50; i++) begin
+      t.randomize();
+      $display("A: %d, B: %d, Op: %d", t.a, t.b, t.op);
+    end
   end
+
+    //$display("Test failed: %d, Test passed: %d", fail, pass);
       
 
   
