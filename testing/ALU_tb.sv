@@ -43,18 +43,22 @@ module alu_tb;//module declaration
     endcase
   endfunction 
 
-  class alu_txn; //random stimulus 
+  class alu_rand; //random stimulus 
       rand logic [3:0] a, b;
       rand logic [2:0] op;
       constraint c_op {op inside {[3'd1: 3'd5]}; }
   endclass
 
   covergroup alu_cg;
-    cp_op : coverpoint Operation;
+    cp_op : coverpoint Operation{
+      bins low = {1};
+      bins high = {5};
+      bins rest = {[2:4]};
+    }
   endgroup
 
   initial begin
-    alu_txn t;
+    alu_rand t;
     alu_cg cg;
     cg = new ();
     t = new();
