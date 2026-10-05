@@ -49,17 +49,26 @@ module alu_tb;//module declaration
       constraint c_op {op inside {[3'd1: 3'd5]}; }
   endclass
 
+  covergroup alu_cg;
+    cp_op : coverpoint Operation;
+  endgroup
+
   initial begin
     alu_txn t;
+    alu_cg cg;
+    cg = new ();
     t = new();
     for(i=0; i<50; i++) begin
       if(!t.randomize())
         $error("randomized failed");
-      else
+      else begin
         check_alu(t.op, t.a, t.b, reference_alu(t.op, t.a, t.b));
-        $display("A: %d, B: %d, op: %d, answer:%d", t.a, t.b, t.op, result);
+        cg.sample();
+        $display("A: %0d, B: %0d, op: %0d, answer:%d", t.a, t.b, t.op, result);
+      end
     end
-    $display("Test failed: %d, Test passed: %d", fail, pass);
+    $display("Test failed: %0d, Test passed: %0d", fail, pass);
+    $display("Coverage: %0.2f", cg.get_coverage());
   end
       
 
