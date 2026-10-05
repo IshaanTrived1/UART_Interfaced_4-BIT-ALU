@@ -32,37 +32,34 @@ module alu_tb;//module declaration
      end
   endtask
 
-
-  /* initial begin 
-
-    for(i=0; i < 16; i++) begin
-      for(j=0; j<16; j++) begin
-        check_alu(dut.ADD, i, j, i+j);
-        check_alu(dut.SUB, i, j, i-j);
-        //check_alu(dut.MULT, i, j, i*j);
-        //check_alu(dut.SHIFT_LEFT, i, j, i<<j);
-       // check_alu(dut.SHIFT_RIGHT, i, j, i>>j);
-
-      end
-    end */
+  //writing a reference_alu so we dont have to call check_alu multiple times for each case
+  function automatic logic [7:0] reference_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b);
+    case(op)
+      3'd1: return(a + b);
+      3'd2: return (a-b);
+      3'd3: return (a * b);
+      3'd4: return (a << b);
+      3'd5: return (a >> b);
+    endcase
+  endfunction 
 
   class alu_txn; //random stimulus 
       rand logic [3:0] a, b;
       rand logic [2:0] op;
-      constraint c_op {op inside {3'd2, 3'd5}; }
+      constraint c_op {op inside {[3'd1: 3'd5]}; }
   endclass
 
   initial begin
     alu_txn t;
     t = new();
     for(i=0; i<50; i++) begin
-      t.randomize();
-      check_alu(op, a, b, t.a);
-      //$display("A: %d, B: %d, Op: %d", t.a, t.b, t.op);
+      if(!t.randomize())
+        $error("randomized failed");
+      else
+        check_alu(t.op, t.a, t.b, reference_alu(t.op, t.a, t.b));
     end
+    $display("Test failed: %d, Test passed: %d", fail, pass);
   end
-
-    //$display("Test failed: %d, Test passed: %d", fail, pass);
       
 
   
