@@ -16,7 +16,7 @@ module alu_tb;//module declaration
   );
 
   //our test function
-  /* task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
+   task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
     A = a;
     B = b;
     Operation = op;
@@ -30,7 +30,7 @@ module alu_tb;//module declaration
       $display("Test failed. Expected %d, got %d for operation: %d", expected, result, op);
       fail = fail + 1;
      end
-  endtask */
+  endtask
 
 
   /* initial begin 
@@ -49,14 +49,16 @@ module alu_tb;//module declaration
   class alu_txn; //random stimulus 
       rand logic [3:0] a, b;
       rand logic [2:0] op;
+      constraint c_op {op inside {3'd2, 3'd5}; }
   endclass
 
   initial begin
-    alu_txn t 
+    alu_txn t;
     t = new();
     for(i=0; i<50; i++) begin
       t.randomize();
-      $display("A: %d, B: %d, Op: %d", t.a, t.b, t.op);
+      check_alu(op, a, b, t.a);
+      //$display("A: %d, B: %d, Op: %d", t.a, t.b, t.op);
     end
   end
 
