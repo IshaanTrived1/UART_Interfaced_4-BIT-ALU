@@ -56,7 +56,6 @@ module alu_tb;//module declaration
       if(!t.randomize())
         $error("randomized failed");
       else
-        #10;
         check_alu(t.op, t.a, t.b, reference_alu(t.op, t.a, t.b));
         $display("A: %d, B: %d, op: %d, answer:%d", t.a, t.b, t.op, result);
     end
