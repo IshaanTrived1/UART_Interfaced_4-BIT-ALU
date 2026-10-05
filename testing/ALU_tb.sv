@@ -46,7 +46,7 @@ module alu_tb;//module declaration
       end
     end */
 
-  class alu_txn;
+  class alu_txn; //random stimulus 
       rand logic [3:0] a, b;
       rand logic [2:0] op;
   endclass
