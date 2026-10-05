@@ -52,7 +52,8 @@ module alu_tb;//module declaration
   endclass
 
   initial begin
-    alu_txn t = new();
+    alu_txn t 
+    t = new();
     for(i=0; i<50; i++) begin
       t.randomize();
       $display("A: %d, B: %d, Op: %d", t.a, t.b, t.op);
