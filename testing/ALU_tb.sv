@@ -36,7 +36,7 @@ module alu_tb;//module declaration
   function automatic logic [7:0] reference_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b);
     case(op)
       3'd1: return(a + b);
-      3'd2: return (a-b);
+      3'd2: return (a - b);
       3'd3: return (a * b);
       3'd4: return (a << b);
       3'd5: return (a >> b);
@@ -51,29 +51,27 @@ module alu_tb;//module declaration
 
   covergroup alu_cg;
     cp_op : coverpoint Operation{
-      bins low = {1};
-      bins high = {5};
-      bins rest = {[2:4]};
+      bins add = {1};
+      bins sub = {2};
+      bins mult = {3};
+      bins shiftL = {4};
+      bins shiftR = {5};
     }
 
-    cp_a : coverpoint Operation{
+    cp_a : coverpoint A{
       bins low = {0};
-      bins high = {7};
-      bins rest = {[1:6]};
+      bins high = {15};
+      bins rest = {[1:14]};
     }
 
-    cp_b : coverpoint Operation{
+    cp_b : coverpoint B{
       bins low = {0};
-      bins high = {7};
-      bins rest = {[1:6]};
+      bins high = {15};
+      bins rest = {[1:14]};
     }
 
-    crossA: cross cp_op, cp_a{
-      illegal_bins notlegal = ((op==0) & (b==0));
-    }
-    crossB: cross cp_op, cp_b{
-      illegal_bins notlegal = ((op==0) & (b==0));
-    }
+    crossA: cross cp_op, cp_a;
+    crossB: cross cp_op, cp_b;
   endgroup
 
   initial begin
@@ -92,6 +90,8 @@ module alu_tb;//module declaration
     end
     $display("Test failed: %0d, Test passed: %0d", fail, pass);
     $display("Coverage: %0.2f", cg.get_coverage());
+    $display("crossA: %0.2f", cg.crossA.get_coverage());
+    $display("crossB: %0.2f", cg.crossB.get_coverage());
   end
       
 
