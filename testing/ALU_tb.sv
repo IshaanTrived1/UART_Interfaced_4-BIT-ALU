@@ -55,6 +55,25 @@ module alu_tb;//module declaration
       bins high = {5};
       bins rest = {[2:4]};
     }
+
+    cp_a : coverpoint Operation{
+      bins low = {0};
+      bins high = {7};
+      bins rest = {[1:6]};
+    }
+
+    cp_b : coverpoint Operation{
+      bins low = {0};
+      bins high = {7};
+      bins rest = {[1:6]};
+    }
+
+    crossA: cross cp_op, cp_a{
+      illegal_bins notlegal = ((op==0) & (b==0));
+    }
+    crossB: cross cp_op, cp_b{
+      illegal_bins notlegal = ((op==0) & (b==0));
+    }
   endgroup
 
   initial begin
