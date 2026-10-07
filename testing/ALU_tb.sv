@@ -73,8 +73,14 @@ module alu_tb;//module declaration
       bins rest = {[1:14]};
     }
 
+    cp_neg : coverpoint ((B>A) & (Operation==3'd2)){
+      bins yes = {1};
+      bins no = {0};
+    }
+
     crossA: cross cp_op, cp_a; //cross coverage tells us we checked the code while a was this and op was this
     crossB: cross cp_op, cp_b;
+    crossNeg: cross cp_op, cp_neg;
   endgroup
 
   initial begin
@@ -95,6 +101,7 @@ module alu_tb;//module declaration
     $display("Coverage: %0.2f", cg.get_coverage());
     $display("crossA: %0.2f", cg.crossA.get_coverage());
     $display("crossB: %0.2f", cg.crossB.get_coverage());
+    $display("crossNeg: %0.2f", cg.crossNeg.get_coverage());
   end
       
 
