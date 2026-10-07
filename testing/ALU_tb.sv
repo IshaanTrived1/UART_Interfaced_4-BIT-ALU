@@ -47,6 +47,8 @@ module alu_tb;//module declaration
       rand logic [3:0] a, b;
       rand logic [2:0] op;
       constraint c_op {op inside {[3'd1: 3'd5]}; }
+      constraint c_a {a dist {0 := 1, 15 := 1, [1:14] :/ 1}; } //dist adds weight to how much each value is tested
+      constraint c_b {b dist {0 := 1, 15 := 1, [1:14] :/ 1}; }
   endclass
 
 //covergroup here lets us know how much of each thing is covered
