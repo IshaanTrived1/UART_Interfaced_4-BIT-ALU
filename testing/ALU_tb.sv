@@ -15,7 +15,7 @@ module alu_tb;//module declaration
     .result(result)
   );
 
-  //our test function
+  //our test function 
    task automatic check_alu(input logic[2:0]op, input logic[3:0]a, input logic[3:0]b, input logic[7:0] expected);    
     A = a;
     B = b;
@@ -49,9 +49,10 @@ module alu_tb;//module declaration
       constraint c_op {op inside {[3'd1: 3'd5]}; }
   endclass
 
+//covergroup here lets us know how much of each thing is covered
   covergroup alu_cg;
     cp_op : coverpoint Operation{
-      bins add = {1};
+      bins add = {1}; //each bin gets checked once this code checks it
       bins sub = {2};
       bins mult = {3};
       bins shiftL = {4};
@@ -70,12 +71,12 @@ module alu_tb;//module declaration
       bins rest = {[1:14]};
     }
 
-    crossA: cross cp_op, cp_a;
+    crossA: cross cp_op, cp_a; //cross coverage tells us we checked the code while a was this and op was this
     crossB: cross cp_op, cp_b;
   endgroup
 
   initial begin
-    alu_rand t;
+    alu_rand t; //rand and covergroup init
     alu_cg cg;
     cg = new ();
     t = new();
