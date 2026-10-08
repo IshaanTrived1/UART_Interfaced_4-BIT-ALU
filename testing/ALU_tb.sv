@@ -73,7 +73,7 @@ module alu_tb;//module declaration
       bins rest = {[1:14]};
     }
 
-    cp_neg : coverpoint ((B>A) & (Operation==3'd2)){
+    cp_neg : coverpoint ((B>A) & (Operation==3'd2)){ //will check for negative values
       bins yes = {1};
       bins no = {0};
     }
@@ -96,7 +96,8 @@ module alu_tb;//module declaration
         cg.sample();
         $display("A: %0d, B: %0d, op: %0d, answer:%d", t.a, t.b, t.op, result);
       end
-    end
+    end 
+    //all displays for debugging
     $display("Test failed: %0d, Test passed: %0d", fail, pass);
     $display("Coverage: %0.2f", cg.get_coverage());
     $display("crossA: %0.2f", cg.crossA.get_coverage());
