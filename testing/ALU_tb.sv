@@ -94,7 +94,7 @@ module alu_tb;//module declaration
     alu_cg cg;
     cg = new ();
     t = new();
-    for(i=0; i<50; i++) begin
+    for(i=0; i<500; i++) begin
       if(!t.randomize())
         $error("randomized failed");
       else begin
