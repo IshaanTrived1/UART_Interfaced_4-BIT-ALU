@@ -20,8 +20,6 @@ The design accepts commands from a PC over a serial connection, executes an arit
 
 Send a three-byte command containing the opcode and operands. The FPGA computes the result and returns one result byte.
 
-*Example commands and terminal output can be added here once the byte encoding and terminal's display format are confirmed.*
-
 ## Architecture
 
 | Module | Responsibility |
