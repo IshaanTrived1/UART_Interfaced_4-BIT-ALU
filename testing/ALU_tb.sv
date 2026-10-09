@@ -1,3 +1,8 @@
+/*READ THIS: This entire code could just exhaustively check every value possible as
+it would only take a few microseconds but the scoreboard, coverage, etc is so I can learn*/
+
+
+
 module alu_tb;//module declaration
   logic [3:0] A, B;
   logic [2:0] Operation;
@@ -76,6 +81,7 @@ module alu_tb;//module declaration
     cp_neg : coverpoint ((B>A) & (Operation==3'd2)){ //will check for negative values
       bins yes = {1};
       bins no = {0};
+      ignore_bins ign = {}
     }
 
     crossA: cross cp_op, cp_a; //cross coverage tells us we checked the code while a was this and op was this
